@@ -24,16 +24,16 @@ def main():
         epilog="Example usage: \npython run.py --gui --prompt 'Hello, world!' --model codellama\npython run.py --prompt 'Hello, world!' --model gptneo",
         formatter_class=argparse.RawTextHelpFormatter
     )
-    parser.add_argument("--prompt", type=str, help="Initial prompt to use for generating suggestions. Required for console mode.", default=None)
-    parser.add_argument("--model", type=str, choices=['codellama', 'gptneo', 'codegen'], help="Specifies the model to use for suggestions. Options: 'codellama', 'gptneo', 'codegen'. Default is 'codellama'.", default="codegen")
+    parser.add_argument("--prompt", type=str, help="Initial prompt to use for generating suggestions. Required for console mode if --model is specified.", default=None)
+    parser.add_argument("--model", type=str, choices=['codellama', 'gptneo', 'codegen'], help="Specifies the model to use for suggestions. Options: 'codellama', 'gptneo', 'codegen'. Required for console mode if --prompt is specified.", default=None)
     parser.add_argument("--gui", action="store_true", help="Launches the GUI application. If not specified, executes in console mode.")
 
     # Parse command-line arguments
     args = parser.parse_args()
 
-    # Check if prompt is required for console mode
-    if not args.gui and args.prompt is None:
-        parser.error("--prompt is required for console mode.")
+    # Custom check for --prompt and --model to be used together in console mode
+    if not args.gui and (args.prompt is None) != (args.model is None):
+        parser.error("--prompt and --model must be used together in console mode.")
 
     # Conditionally launch GUI or execute model based on the arguments
     if args.gui:
@@ -42,7 +42,7 @@ def main():
         ex.show()
         sys.exit(app.exec())
     else:
-        # Validate the prompt for console mode now
+        # Since both are required together, this check is sufficient
         args.prompt = non_empty_string(args.prompt)
 
         if args.model == "gptneo":
