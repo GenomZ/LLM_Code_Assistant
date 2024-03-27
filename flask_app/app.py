@@ -1,8 +1,8 @@
 from flask import Flask, request, jsonify
 
-from src.llm_code_assistant.llm_code_assistant import (model_predict_codellama,
-                                                       model_predict_gptneo,
-                                                       model_predict_codegen)
+from src.llm_code_assistant.main import (model_predict_codellama,
+                                         model_predict_gptneo,
+                                         model_predict_codegen)
 
 
 app = Flask(__name__)

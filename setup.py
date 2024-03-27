@@ -12,9 +12,10 @@ setup(
     license='MIT',
     install_requires=[
         'transformers~=4.39.1',
-        'torch~=1.11.0',
+        'torch~=2.2.1',
         'PySide6~=6.6.1',
-        'setuptools~=58.1.0',
+        'setuptools~=69.2.0',
+        'flask~=3.0.2'
     ],
     url='https://github.com/GenomZ/LLM_Code_Assistant',
     classifiers=[

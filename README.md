@@ -6,13 +6,13 @@
 - [Table of contents](#table-of-contents)
   - [General info](#general-info)
   - [Exmple Usage](#example-usages-and-comaprison-between-the-3-models)
+  - [Model Comparison](#model-comaprison)
     - [Prompt 1](#prompt-write-in-python-function-printing-frst-five-numbers-of-fibonacci-sequence)
     - [Prompt 2](#prompt-def-fibonacci_sequence)
-    - [Prompt 3]()
+    - [Prompt 3](#prompt-def-llm_code_assistant)
   - [Technologies](#technologies)
   - [Prerequirements](#prerequirements)
   - [Setup](#setup)
-    - [Unique\_config](#unique_config)
   - [Documentation](#documentation)
 
 ## General info
@@ -36,14 +36,17 @@ This project is a recruitment task for Opera recruitment process for a position 
 
 **To read the full code documentation open: ```docs/build/html/index.html```**
 
-In this project I have tested most popular LLM models available with non-limiting 
+In this project I have tested most well argumented LLM models with code completion and description capability available with non-limiting 
 licenses (MIT, Apache 2.0, bsd-3-clause):
 
 * `codellama/CodeLlama-7b-hf` (~32GB download)
 * `Salesforce/CodeGen-350M` (~4GB download)
 * `EleutherAI/Neo-GPT-125M` (~1GB download)
 
-To fulfill the requirement 'Localhost' of the assignment I have chosen to cache the models using inbult functionality
+Models are Large Language Models (LLMs) executed with transformers repository using Python language to fulfil the first
+two point of the task.
+
+To fulfill the requirement 'Localhost' of the assignment I have chosen to cache the models using inbuilt functionality
 of transformers repository. When providing the model identifier, model is stored and will not be downloaded every time it is used.
 Alternative to this method would be to clone each model from their respective Hugging Face repos and changing the model identifier
 to a path where the model repo was cloned. This has proven to produce more trouble as the pathing and cloning routine
@@ -55,6 +58,9 @@ The queries are sent to the app via GUI and displayed for the user to be copied 
 
 I have provided functionality to enter prompt within the GUI and scan the selected project path for the last modified file
 and use the last characters from it (up to max_length of the chosen model) as prompt.
+
+To fulfil the requirements of (short) documentation I have written this readme file, provided docstrings and comments
+in most meaningful places of the code and generated a html documentation with sphinx repository.
 
 Usage of any mentioned models requires caching them from Hugging Face, which will be done automatically before the first prediction.
 Make note that the **CodeLlama model requires more than 30GB of download and about 53GB of non system restricted VRAM** 
@@ -69,7 +75,44 @@ This would sole repetition and unclear suggestions. In the case where the model 
 the model producing 'clear code' would be most practical. Prefixes to the queries and query engineering would be a suggested approach
 to achieve more clarity in the output.
 
-## Example usages and comaprison between the 3 models:
+## Example usage
+
+The `run.py` script is the primary entry point for launching the Language Model (LLM) application. 
+It offers flexible modes of operation, including a graphical user interface (GUI) mode for interactive 
+use and a console mode for direct command-line execution.
+
+* `--prompt` PROMPT: Specifies the initial prompt to use for generating suggestions. If omitted, the application starts without a predefined prompt.
+* `--model` MODEL: Determines the model name to use for generating suggestions. Default is "ModelA". Replace "ModelA" with your model's identifier as necessary.
+* `--gui:` Launches the application in GUI mode. If this argument is not specified, the application will run in console mode, executing the model directly with the provided --prompt and --model arguments and printing the result to the console.
+
+### Example runs
+
+#### Start GUI
+
+```commandline
+python run.py --gui
+```
+
+#### Double quouted prompt and model arguments
+
+```commandline
+python run.py --prompt "def random_distribution():" --model gptneo
+```
+
+#### Single quoted prompt and model arguments (use with caution with some shells)
+
+```commandline
+python run.py --prompt 'def hello_world():' --model codegen
+```
+
+#### No quotes and model arguments, no spaces allowed
+
+```commandline
+python run.py --prompt why --model codellama
+```
+
+
+## Model Comaprison
 
 ### Prompt: "write in python function printing frst five numbers of fibonacci sequence"
 
@@ -228,6 +271,7 @@ Project is created with:
 * PyQt6
 * transformers
 * pytorch
+* flask
 
 ## Prerequisites
 All required libraries can be installed by executing:
@@ -240,15 +284,11 @@ pip install -r requirements.txt
 To use this project, run using python:
 **Python 3.10**
 
+#### To execute the package setup execute the following command
+
+```commandline
+pip install -e .
 ```
-$ python llm_code_assistant.py
-```
-
-### Unique_config
-
-To resolve any issues with imports of internal functions execute:
-
-```pip install -e .```
 
 ## Documentation
 

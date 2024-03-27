@@ -4,8 +4,17 @@ import torch
 
 def model_predict_codellama(prompt: str) -> str:
     """
-    something
-    :return:
+    Function calling a codellama/CodeLlama-7b-hf model from Hugging Face with a user provided prompt.
+    The function returns a string that is a result of text generation. The model focuses on code completion
+    and code commenting.
+    Function is specifically designed to work with the defined model, providing a different model identifier may result
+    with unexpected behaviour.
+
+     Args:
+        prompt: string which is a piece of code that should be completed with the specified model
+
+    Returns:
+        code_completion: string that is a continuation of the provided code in a form of text
     """
 
     # Defining model identifier to access and cache the model from Hugging Face Hub
@@ -42,8 +51,17 @@ def model_predict_codellama(prompt: str) -> str:
 
 def model_predict_gptneo(prompt: str) -> str:
     """
-    something
-    :return:
+    Function calling a EleutherAI/gpt-neo-125m model from Hugging Face with a user provided prompt.
+    The function returns a string that is a result of text generation. The model focuses on code completion
+    and code commenting.
+    Function is specifically designed to work with the defined model, providing a different model identifier may result
+    with unexpected behaviour.
+
+     Args:
+        prompt: string which is a piece of code that should be completed with the specified model
+
+    Returns:
+        code_completion: string that is a continuation of the provided code in a form of text
     """
 
     # Check if GPU acceleration is available
@@ -69,26 +87,27 @@ def model_predict_gptneo(prompt: str) -> str:
 
     # Generate a sequence of tokens following the prompt
     max_length = len(input_ids[0]) + 500  # You can adjust the max_length as needed
-
     output = model.generate(input_ids, attention_mask=attention_mask, max_length=max_length, no_repeat_ngram_size=2,
                             early_stopping=True, num_beams=5, pad_token_id=tokenizer.eos_token_id)
+
     # Decode the generated tokens to a string
     completed_code = tokenizer.decode(output[0], skip_special_tokens=True)
 
     return completed_code
 
-
-def model_retrain_gptneo():
-    """
-    something
-    :return:
-    """
-    pass
-
 def model_predict_codegen(prompt: str) -> str:
     """
-    something
-    :return:
+    Function calling a EleutherAI/gpt-neo-125m model from Hugging Face with a user provided prompt.
+    The function returns a string that is a result of text generation. The model focuses on code completion
+    and code commenting.
+    Function is specifically designed to work with the defined model, providing a different model identifier may result
+    with unexpected behaviour.
+
+     Args:
+        prompt: string which is a piece of code that should be completed with the specified model
+
+    Returns:
+        code_completion: string that is a continuation of the provided code in a form of text
     """
 
     # Check if GPU acceleration is available
@@ -105,8 +124,5 @@ def model_predict_codegen(prompt: str) -> str:
     # Parse prompt, generate and return output
     generated_ids = model.generate(input_ids, max_length=1024)
     completed_code = tokenizer.decode(generated_ids[0], skip_special_tokens=True)
-    # print(output)
-
-    # print(output.split("\n\n"))
 
     return completed_code
