@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/code_assistant_logo.png" width="350" title="hover text" alt="MUZG logo">
+  <img src="code_assistant_logo.png" width="350" title="hover text" alt="MUZG logo">
 </p>
 
 # Table of contents
