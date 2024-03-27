@@ -18,21 +18,48 @@
 ## General info
 This project is a recruitment task for Opera recruitment process for a position of AI Python Developer.
 
-**To read the full code documentation go to: ```docs/build/html/index.html```**
+#### Project requirements:
+```
+- Python
+- LLM
+- Localhost
+```
+
+
+#### Result:
+```
+- Code
+- (short) Documentation**
+```
+
+
+
+**To read the full code documentation open: ```docs/build/html/index.html```**
 
 In this project I have tested most popular LLM models available with non-limiting 
 licenses (MIT, Apache 2.0, bsd-3-clause):
 
-* `codellama/CodeLlama-7b-hf`
-* `Salesforce/CodeGen-350M`
-* `EleutherAI/Neo-GPT-125M`
+* `codellama/CodeLlama-7b-hf` (~32GB download)
+* `Salesforce/CodeGen-350M` (~4GB download)
+* `EleutherAI/Neo-GPT-125M` (~1GB download)
+
+To fulfill the requirement 'Localhost' of the assignment I have chosen to cache the models using inbult functionality
+of transformers repository. When providing the model identifier, model is stored and will not be downloaded every time it is used.
+Alternative to this method would be to clone each model from their respective Hugging Face repos and changing the model identifier
+to a path where the model repo was cloned. This has proven to produce more trouble as the pathing and cloning routine
+required to use direct pathing not fully compatible with the project structure used for autodoc-sphinx and authorization
+issues while using git clone with Popen.subprocess, although with more given time such procedure would be entirely possible.
+
+I have provided a rudimentary GUI that is connecting to a Flask app, that is running constantly after starting the project.
+The queries are sent to the app via GUI and displayed for the user to be copied into their code editor.
+
+I have provided functionality to enter prompt within the GUI and scan the selected project path for the last modified file
+and use the last characters from it (up to max_length of the chosen model) as prompt.
 
 Usage of any mentioned models requires caching them from Hugging Face, which will be done automatically before the first prediction.
 Make note that the **CodeLlama model requires more than 30GB of download and about 53GB of non system restricted VRAM** 
 (GPU or M1/M2 type chip on Mac) or RAM and it takes more than 10min for a single prediction with the use of a CPU.
 
-The suggestions from `Neo-GPT-125M` were deemed of lesser quality and an approach of fine-tuning 
-was applied to `Neo-GPT-125M` as it was smaller, and it would be performed faster live.
 
 `CodeGen-350M` and `CodeLlama-7b-hf` were in most cases equally correct, with the `CodeLlama` producing much more support
 text in a manner similar to ChatGPT from OpenAI, but the amount of additional text was dependent on the phrasing of the prompt.
@@ -141,20 +168,58 @@ def fibonacci_sequence():
 * Neo-GPT-125M
 
 ```
-
+def llm_code_assistant():
+  return llvm::CodeAssistant::new();
+}
 ```
 
 * CodeGen-350M
 
 ```
-
+def llm_code_assistant():
+    """
+    This function will return the code assistant
+    """
+    return "code assistant"
 ```
 
 * CodeLlama-7b-hf
 
 ```
+def llm_code_assistant():
+    """
+    This function is used to get the code assistant for the LLVM code.
+    """
+    return llvm_code_assistant()
 
+
+def llvm_code_assistant():
+    """
+    This function is used to get the code assistant for the LLVM code.
+    """
+    return CodeAssistant(
+        "LLVM",
+        "LLVM",
+        "LLVM",
+        "LLVM",
+        "LLVM",
+        "LLVM",
+        "LLVM",
+        "LLVM",
+        "LLVM",
+        "LLVM",
+        "LLVM",
+        "LLVM",
+        "LLVM",
+        "LLVM",
+        "LLVM",
+        "LLVM",
+        "LLVM",
+        "LLVM",
+        "LLVM",
 ```
+
+It is somewhat reassuring that all models are terrible at replicating my task.
 
 
 ## Technologies
@@ -165,11 +230,11 @@ Project is created with:
 * pytorch
 
 ## Prerequisites
-Downloading and cloning of models from Hugging Face will require a registered account on the site and installing git lsf.
+All required libraries can be installed by executing:
 
-To install git lfs execute command:
-
-```git lfs install```
+```commandline
+pip install -r requirements.txt
+```
 
 ## Setup
 To use this project, run using python:
@@ -181,10 +246,6 @@ $ python llm_code_assistant.py
 
 ### Unique_config
 
-To install any missing requirements and dependencies execute:
-
-```pip install -r requirements.txt```
-
 To resolve any issues with imports of internal functions execute:
 
 ```pip install -e .```
@@ -195,11 +256,19 @@ Documentation created with sphinx.
 
 To recreate the process You will have to execute following commands from the root directory:
 
-```pip install sphinx```
+```commandline
+pip install sphinx
+```
 
-```sphinx-quickstart```
+```commandline
+sphinx-quickstart
+```
 
-```sphinx-apidoc -f --no-toc -d 1 --separate --module-first --output-dir docs/build .\src\llm_code_assistant\```
+```commandline
+sphinx-apidoc -f --no-toc -d 1 --separate --module-first --output-dir docs/build .\src\llm_code_assistant\
+```
 
-```sphinx-build -M html docs docs/build/```
+```commandline
+sphinx-build -M html docs docs/build/
+```
 

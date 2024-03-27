@@ -1,61 +1,62 @@
 import sys
-from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton
-from PySide6.QtNetwork import QNetworkAccessManager, QNetworkRequest
-from PySide6.QtCore import QUrl, QByteArray, Qt
-from PySide6.QtGui import QTextCursor
+import requests
+import threading
+from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QTextEdit
 
-class MainWindow(QWidget):
+# Assuming your Flask app is correctly set up for threading as discussed previously
+from flask_app.app import run_flask_app
+
+class LLMGUI(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Code Completion GUI")
-        self.setGeometry(100, 100, 400, 300)
+        self.layout = QVBoxLayout()
+        self.initUI()
+        # Start the Flask app in a background thread
+        self.flaskThread = threading.Thread(target=run_flask_app, daemon=True)
+        self.flaskThread.start()
 
-        layout = QVBoxLayout()
+    def initUI(self):
+        self.setWindowTitle('Code Assistant - KB v0.0.1')
+        self.setGeometry(100, 100, 600, 400)
 
-        self.prompt_label = QLabel("Enter Prompt:")
-        layout.addWidget(self.prompt_label)
+        # Input TextEdit
+        self.inputTextEdit = QTextEdit(self)
+        self.inputTextEdit.setPlaceholderText("Enter your prompt here...")
+        self.layout.addWidget(self.inputTextEdit)
 
-        self.prompt_input = QLineEdit()
-        layout.addWidget(self.prompt_input)
+        # Button for getting suggestion
+        self.btnModelNeoGPT = QPushButton('Get Suggestion from Neo-GPT-125M', self)
+        self.btnModelNeoGPT.clicked.connect(lambda: self.getSuggestion("gptneo"))
+        self.layout.addWidget(self.btnModelNeoGPT)
 
-        self.submit_button = QPushButton("Get Completions")
-        self.submit_button.clicked.connect(self.get_completions)
-        layout.addWidget(self.submit_button)
+        self.btnModelCodeGen = QPushButton('Get Suggestion from CodeGen-350M', self)
+        self.btnModelCodeGen.clicked.connect(lambda: self.getSuggestion("codegen"))
+        self.layout.addWidget(self.btnModelCodeGen)
 
-        self.completions_label = QLabel("Completions:")
-        layout.addWidget(self.completions_label)
+        self.btnModelCodeLlama = QPushButton('Get Suggestion from CodeLlama-7b-hf', self)
+        self.btnModelCodeLlama.clicked.connect(lambda: self.getSuggestion("codellama"))
+        self.layout.addWidget(self.btnModelCodeLlama)
 
-        self.completions_output = QLabel()
-        self.completions_output.setWordWrap(True)
-        layout.addWidget(self.completions_output)
+        # Output TextEdit
+        self.outputTextEdit = QTextEdit(self)
+        self.outputTextEdit.setPlaceholderText("Output will appear here...")
+        self.outputTextEdit.setReadOnly(True)  # Make output read-only
+        self.layout.addWidget(self.outputTextEdit)
 
-        self.setLayout(layout)
+        self.setLayout(self.layout)
 
-        self.network_manager = QNetworkAccessManager()
-        self.network_manager.finished.connect(self.handle_response)
-
-    def get_completions(self):
-        prompt = self.prompt_input.text()
-
-        if prompt:
-            url = QUrl("http://localhost:5000/complete")
-            request = QNetworkRequest(url)
-            request.setHeader(QNetworkRequest.ContentTypeHeader, "application/x-www-form-urlencoded")
-
-            data = QByteArray()
-            data.append(f"prompt={prompt}")
-
-            self.network_manager.post(request, data)
-
-    def handle_response(self, reply):
-        if reply.error() == QNetworkAccessManager.NoError:
-            content = reply.readAll().data().decode()
-            self.completions_output.setText(content)
+    def getSuggestion(self, model):
+        prompt = self.inputTextEdit.toPlainText()
+        # Here, replace 'your_endpoint_url' with the actual URL of your Flask endpoint
+        response = requests.post(f'http://localhost:5000/{model}', json={'prompt': prompt})
+        if response.status_code == 200:
+            suggestion = response.json()['suggestion']
+            self.outputTextEdit.setText(suggestion)
         else:
-            self.completions_output.setText("Error: Unable to fetch completions")
+            self.outputTextEdit.setText('Error getting suggestion')
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app = QApplication(sys.argv)
-    window = MainWindow()
-    window.show()
+    ex = LLMGUI()
+    ex.show()
     sys.exit(app.exec())

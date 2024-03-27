@@ -1,33 +1,43 @@
-from flask import Flask, render_template, request, jsonify
-from transformers import AutoTokenizer, AutoModelForCausalLM
-import torch
+from flask import Flask, request, jsonify
+
+from src.llm_code_assistant.llm_code_assistant import (model_predict_codellama,
+                                                       model_predict_gptneo,
+                                                       model_predict_codegen)
+
 
 app = Flask(__name__)
 
-device = "cuda:0" if torch.cuda.is_available() else "cpu"
+@app.route('/codellama', methods=['POST'])
+def codellama():
+    """
+    Function that returns output for  prompt with the use of codellama/CodeLlama-7b-hf model from Hugging Face
+    :return:
+    """
+    data = request.json
+    prompt = data['prompt']
+    suggestion = model_predict_codellama(prompt)
+    return jsonify(suggestion=suggestion)
 
-tokenizer = AutoTokenizer.from_pretrained("Salesforce/codegen-350M-mono")
-model = AutoModelForCausalLM.from_pretrained("Salesforce/codegen-350M-mono")
+@app.route('/gptneo', methods=['POST'])
+def gptneo():
+    """
+    Function that returns output for  prompt with the use of codellama/CodeLlama-7b-hf model from Hugging Face
+    :return:
+    """
+    data = request.json
+    prompt = data['prompt']
+    suggestion = model_predict_gptneo(prompt)
+    return jsonify(suggestion=suggestion)
 
-# Use GPU if applicable
-model = model.to(device)
+@app.route('/codegen', methods=['POST'])
+def codegen():
+    data = request.json
+    prompt = data['prompt']
+    suggestion = model_predict_codegen(prompt)
+    return jsonify(suggestion=suggestion)
 
-
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-
-@app.route('/complete', methods=['POST'])
-def complete():
-    prompt = request.form['prompt']
-    input_ids = tokenizer(prompt, return_tensors="pt").to(device).input_ids
-
-    generated_ids = model.generate(input_ids, max_length=1024)
-    completions = tokenizer.decode(generated_ids[0], skip_special_tokens=True)
-
-    return jsonify(completions=completions)
-
+def run_flask_app():
+    app.run(debug=True, use_reloader=False)  # use_reloader=False is important to avoid starting the app twice
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    run_flask_app()
