@@ -1,7 +1,14 @@
 import subprocess
 import os
 
-def clone_huggingface_model_repo(model_name, models_dir="models"):
+def check_if_model_downloaded(model: str) -> bool:
+    """
+    something
+    :return:
+    """
+    return False
+
+def clone_huggingface_model_repo(model_name: str, models_dir="models"):
     """
     Clone a Hugging Face model repository into the specified ./models/ directory.
     Models downloaded with the function:
