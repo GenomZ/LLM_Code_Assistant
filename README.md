@@ -32,9 +32,7 @@ This project is a recruitment task for Opera recruitment process for a position 
 - (short) Documentation**
 ```
 
-
-
-**To read the full code documentation open: ```docs/build/html/index.html```**
+**To read the full code documentation open: https://genomz.github.io/LLM_Code_Assistant/**
 
 In this project I have tested most well argumented LLM models with code completion and description capability available with non-limiting 
 licenses (MIT, Apache 2.0, bsd-3-clause):
@@ -262,7 +260,8 @@ def llvm_code_assistant():
         "LLVM",
 ```
 
-It is somewhat reassuring that all models are terrible at replicating my task.
+It is somewhat reassuring that all models are terrible at replicating my task. Although this suggest that there is a lot 
+of possibilities to adjust parameters of the model in its code generation.
 
 
 ## Technologies

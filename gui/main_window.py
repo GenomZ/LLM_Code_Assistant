@@ -6,6 +6,7 @@ from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, Q
 
 from flask_app.app import run_flask_app
 
+
 class LLMGUI(QWidget):
     def __init__(self):
         super().__init__()
@@ -55,6 +56,7 @@ class LLMGUI(QWidget):
             self.outputTextEdit.setText(suggestion)
         else:
             self.outputTextEdit.setText('Error getting suggestion')
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

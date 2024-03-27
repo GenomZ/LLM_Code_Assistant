@@ -21,12 +21,22 @@ def main():
     # Argument parser setup with detailed descriptions
     parser = argparse.ArgumentParser(
         description="Launch the Language Model (LLM) application in GUI or console mode.",
-        epilog="Example usage: \npython run.py --gui --prompt 'Hello, world!' --model codellama\npython run.py --prompt 'Hello, world!' --model gptneo",
+        epilog="Example usage: \npython run.py --gui --prompt 'Hello, world!' --model codellama\npython run.py "
+               "--prompt 'Hello, world!' --model gptneo",
         formatter_class=argparse.RawTextHelpFormatter
     )
-    parser.add_argument("--prompt", type=str, help="Initial prompt to use for generating suggestions. Required for console mode if --model is specified.", default=None)
-    parser.add_argument("--model", type=str, choices=['codellama', 'gptneo', 'codegen'], help="Specifies the model to use for suggestions. Options: 'codellama', 'gptneo', 'codegen'. Required for console mode if --prompt is specified.", default=None)
-    parser.add_argument("--gui", action="store_true", help="Launches the GUI application. If not specified, executes in console mode.")
+    parser.add_argument("--prompt", type=str, help="Initial prompt to use for generating suggestions. Required for "
+                                                   "console mode if --model is specified.", default=None)
+    parser.add_argument("--model", type=str, choices=['codellama', 'gptneo', 'codegen'], help="Specifies the model to "
+                                                                                              "use for suggestions. "
+                                                                                              "Options: 'codellama', "
+                                                                                              "'gptneo', 'codegen'. "
+                                                                                              "Required for console "
+                                                                                              "mode if --prompt is "
+                                                                                              "specified.",
+                        default=None)
+    parser.add_argument("--gui", action="store_true", help="Launches the GUI application. If not specified, executes "
+                                                           "in console mode.")
 
     # Parse command-line arguments
     args = parser.parse_args()
