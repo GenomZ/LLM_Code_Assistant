@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>llm_code_assistant.llm_code_assistant &mdash; LLM_code_assistant v0.0.1 documentation</title>
+  <title>llm_code_assistant.main &mdash; LLM_code_assistant v0.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
 
@@ -45,7 +45,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../build/llm_code_assistant.html">llm_code_assistant package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../build/llm_code_assistant.html#submodules">Submodules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../build/llm_code_assistant.llm_code_assistant.html">llm_code_assistant.llm_code_assistant module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../build/llm_code_assistant.main.html">llm_code_assistant.main module</a></li>
 </ul>
 </li>
 </ul>
@@ -67,7 +67,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">llm_code_assistant.llm_code_assistant</li>
+      <li class="breadcrumb-item active">llm_code_assistant.main</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -76,12 +76,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for llm_code_assistant.llm_code_assistant</h1><div class="highlight"><pre>
+  <h1>Source code for llm_code_assistant.main</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">AutoModelForCausalLM</span><span class="p">,</span> <span class="n">GPTNeoForCausalLM</span><span class="p">,</span> <span class="n">GPT2Tokenizer</span>
 <span class="kn">import</span> <span class="nn">transformers</span>
 <span class="kn">import</span> <span class="nn">torch</span>
 
-<div class="viewcode-block" id="model_predict_codellama"><a class="viewcode-back" href="../../build/llm_code_assistant.llm_code_assistant.html#llm_code_assistant.llm_code_assistant.model_predict_codellama">[docs]</a><span class="k">def</span> <span class="nf">model_predict_codellama</span><span class="p">(</span><span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<div class="viewcode-block" id="model_predict_codellama"><a class="viewcode-back" href="../../build/llm_code_assistant.main.html#llm_code_assistant.main.model_predict_codellama">[docs]</a><span class="k">def</span> <span class="nf">model_predict_codellama</span><span class="p">(</span><span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function calling a codellama/CodeLlama-7b-hf model from Hugging Face with a user provided prompt.</span>
 <span class="sd">    The function returns a string that is a result of text generation. The model focuses on code completion</span>
@@ -128,7 +129,7 @@
     <span class="k">return</span> <span class="n">completed_code</span></div>
 
 
-<div class="viewcode-block" id="model_predict_gptneo"><a class="viewcode-back" href="../../build/llm_code_assistant.llm_code_assistant.html#llm_code_assistant.llm_code_assistant.model_predict_gptneo">[docs]</a><span class="k">def</span> <span class="nf">model_predict_gptneo</span><span class="p">(</span><span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="model_predict_gptneo"><a class="viewcode-back" href="../../build/llm_code_assistant.main.html#llm_code_assistant.main.model_predict_gptneo">[docs]</a><span class="k">def</span> <span class="nf">model_predict_gptneo</span><span class="p">(</span><span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function calling a EleutherAI/gpt-neo-125m model from Hugging Face with a user provided prompt.</span>
 <span class="sd">    The function returns a string that is a result of text generation. The model focuses on code completion</span>
@@ -147,34 +148,40 @@
     <span class="n">device</span> <span class="o">=</span> <span class="s2">&quot;cuda:0&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span>
 
     <span class="c1"># Specify the path to your local model directory</span>
-    <span class="n">mode_identifier</span> <span class="o">=</span> <span class="s2">&quot;EleutherAI/gpt-neo-125m&quot;</span>
+    <span class="n">model_identifier</span> <span class="o">=</span> <span class="s2">&quot;EleutherAI/gpt-neo-125m&quot;</span>
 
     <span class="c1"># Load the model and tokenizer from the local directory</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">GPTNeoForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">mode_identifier</span><span class="p">)</span>
-    <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">GPT2Tokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">mode_identifier</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_identifier</span><span class="p">)</span>
+    <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">GPT2Tokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_identifier</span><span class="p">)</span>
+
+    <span class="c1"># Ensure the tokenizer recognizes the EOS token as a pad token</span>
+    <span class="k">if</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">pad_token</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">tokenizer</span><span class="o">.</span><span class="n">pad_token</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">eos_token</span>
+
+    <span class="c1"># Tokenize the input prompt, ensuring to return tensors, attention mask, and apply padding</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span>
+    <span class="n">input_ids</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">attention_mask</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;attention_mask&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
 
     <span class="c1"># Use GPU if possible</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
 
-    <span class="c1"># Ensure the tokenizer recognizes the EOS token as a pad token</span>
-    <span class="n">tokenizer</span><span class="o">.</span><span class="n">pad_token</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">eos_token</span>
-
-    <span class="c1"># Tokenize the input prompt, ensuring to return tensors, attention mask, and apply padding</span>
-    <span class="n">inputs</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
-    <span class="n">input_ids</span> <span class="o">=</span> <span class="n">inputs</span><span class="o">.</span><span class="n">input_ids</span>
-    <span class="n">attention_mask</span> <span class="o">=</span> <span class="n">inputs</span><span class="o">.</span><span class="n">attention_mask</span>
-
     <span class="c1"># Generate a sequence of tokens following the prompt</span>
-    <span class="n">max_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">input_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="mi">500</span>  <span class="c1"># You can adjust the max_length as needed</span>
-    <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">input_ids</span><span class="p">,</span> <span class="n">attention_mask</span><span class="o">=</span><span class="n">attention_mask</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="n">max_length</span><span class="p">,</span> <span class="n">no_repeat_ngram_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                            <span class="n">early_stopping</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">num_beams</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pad_token_id</span><span class="o">=</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">eos_token_id</span><span class="p">)</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">input_ids</span><span class="p">,</span>
+                            <span class="n">attention_mask</span><span class="o">=</span><span class="n">attention_mask</span><span class="p">,</span>
+                            <span class="n">max_length</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span>
+                            <span class="n">no_repeat_ngram_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                            <span class="n">early_stopping</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                            <span class="n">num_beams</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                            <span class="n">pad_token_id</span><span class="o">=</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">eos_token_id</span><span class="p">)</span>
 
     <span class="c1"># Decode the generated tokens to a string</span>
     <span class="n">completed_code</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">completed_code</span></div>
 
-<div class="viewcode-block" id="model_predict_codegen"><a class="viewcode-back" href="../../build/llm_code_assistant.llm_code_assistant.html#llm_code_assistant.llm_code_assistant.model_predict_codegen">[docs]</a><span class="k">def</span> <span class="nf">model_predict_codegen</span><span class="p">(</span><span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<div class="viewcode-block" id="model_predict_codegen"><a class="viewcode-back" href="../../build/llm_code_assistant.main.html#llm_code_assistant.main.model_predict_codegen">[docs]</a><span class="k">def</span> <span class="nf">model_predict_codegen</span><span class="p">(</span><span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function calling a EleutherAI/gpt-neo-125m model from Hugging Face with a user provided prompt.</span>
 <span class="sd">    The function returns a string that is a result of text generation. The model focuses on code completion</span>
@@ -193,15 +200,20 @@
     <span class="n">device</span> <span class="o">=</span> <span class="s2">&quot;cuda:0&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span>
 
     <span class="c1"># Tokenize input</span>
-    <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;Salesforce/codegen-350M-mono&quot;</span><span class="p">)</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;Salesforce/codegen-350M-mono&quot;</span><span class="p">)</span>
+    <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;Salesforce/codegen-350M-mono&quot;</span><span class="p">)</span>
     <span class="n">input_ids</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">input_ids</span>
 
     <span class="c1"># Use GPU if applicable</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
 
     <span class="c1"># Parse prompt, generate and return output</span>
-    <span class="n">generated_ids</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">input_ids</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span>
+    <span class="n">generated_ids</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">input_ids</span><span class="p">,</span>
+                                   <span class="n">max_length</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span>
+                                   <span class="n">no_repeat_ngram_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                                   <span class="n">early_stopping</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                   <span class="n">num_beams</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                                   <span class="n">pad_token_id</span><span class="o">=</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">eos_token_id</span><span class="p">)</span>
     <span class="n">completed_code</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">generated_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">completed_code</span></div>

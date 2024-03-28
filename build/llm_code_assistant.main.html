@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>llm_code_assistant.llm_code_assistant module &mdash; LLM_code_assistant v0.0.1 documentation</title>
+  <title>llm_code_assistant.main module &mdash; LLM_code_assistant v0.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
 
@@ -47,7 +47,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="llm_code_assistant.html">llm_code_assistant package</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="llm_code_assistant.html#submodules">Submodules</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">llm_code_assistant.llm_code_assistant module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">llm_code_assistant.main module</a></li>
 </ul>
 </li>
 </ul>
@@ -69,9 +69,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="llm_code_assistant.html">llm_code_assistant package</a></li>
-      <li class="breadcrumb-item active">llm_code_assistant.llm_code_assistant module</li>
+      <li class="breadcrumb-item active">llm_code_assistant.main module</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/build/llm_code_assistant.llm_code_assistant.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/build/llm_code_assistant.main.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -79,11 +79,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-llm_code_assistant.llm_code_assistant">
-<span id="llm-code-assistant-llm-code-assistant-module"></span><h1>llm_code_assistant.llm_code_assistant module<a class="headerlink" href="#module-llm_code_assistant.llm_code_assistant" title="Permalink to this heading"></a></h1>
+  <section id="module-llm_code_assistant.main">
+<span id="llm-code-assistant-main-module"></span><h1>llm_code_assistant.main module<a class="headerlink" href="#module-llm_code_assistant.main" title="Permalink to this heading"></a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="llm_code_assistant.llm_code_assistant.model_predict_codegen">
-<span class="sig-prename descclassname"><span class="pre">llm_code_assistant.llm_code_assistant.</span></span><span class="sig-name descname"><span class="pre">model_predict_codegen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/llm_code_assistant/llm_code_assistant.html#model_predict_codegen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#llm_code_assistant.llm_code_assistant.model_predict_codegen" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="llm_code_assistant.main.model_predict_codegen">
+<span class="sig-prename descclassname"><span class="pre">llm_code_assistant.main.</span></span><span class="sig-name descname"><span class="pre">model_predict_codegen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/llm_code_assistant/main.html#model_predict_codegen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#llm_code_assistant.main.model_predict_codegen" title="Permalink to this definition"></a></dt>
 <dd><p>Function calling a EleutherAI/gpt-neo-125m model from Hugging Face with a user provided prompt.
 The function returns a string that is a result of text generation. The model focuses on code completion
 and code commenting.
@@ -102,8 +102,8 @@ with unexpected behaviour.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="llm_code_assistant.llm_code_assistant.model_predict_codellama">
-<span class="sig-prename descclassname"><span class="pre">llm_code_assistant.llm_code_assistant.</span></span><span class="sig-name descname"><span class="pre">model_predict_codellama</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/llm_code_assistant/llm_code_assistant.html#model_predict_codellama"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#llm_code_assistant.llm_code_assistant.model_predict_codellama" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="llm_code_assistant.main.model_predict_codellama">
+<span class="sig-prename descclassname"><span class="pre">llm_code_assistant.main.</span></span><span class="sig-name descname"><span class="pre">model_predict_codellama</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/llm_code_assistant/main.html#model_predict_codellama"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#llm_code_assistant.main.model_predict_codellama" title="Permalink to this definition"></a></dt>
 <dd><p>Function calling a codellama/CodeLlama-7b-hf model from Hugging Face with a user provided prompt.
 The function returns a string that is a result of text generation. The model focuses on code completion
 and code commenting.
@@ -122,8 +122,8 @@ with unexpected behaviour.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="llm_code_assistant.llm_code_assistant.model_predict_gptneo">
-<span class="sig-prename descclassname"><span class="pre">llm_code_assistant.llm_code_assistant.</span></span><span class="sig-name descname"><span class="pre">model_predict_gptneo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/llm_code_assistant/llm_code_assistant.html#model_predict_gptneo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#llm_code_assistant.llm_code_assistant.model_predict_gptneo" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="llm_code_assistant.main.model_predict_gptneo">
+<span class="sig-prename descclassname"><span class="pre">llm_code_assistant.main.</span></span><span class="sig-name descname"><span class="pre">model_predict_gptneo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/llm_code_assistant/main.html#model_predict_gptneo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#llm_code_assistant.main.model_predict_gptneo" title="Permalink to this definition"></a></dt>
 <dd><p>Function calling a EleutherAI/gpt-neo-125m model from Hugging Face with a user provided prompt.
 The function returns a string that is a result of text generation. The model focuses on code completion
 and code commenting.

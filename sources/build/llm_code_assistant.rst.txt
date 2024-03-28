@@ -12,4 +12,4 @@ Submodules
 .. toctree::
    :maxdepth: 1
 
-   llm_code_assistant.llm_code_assistant
+   llm_code_assistant.main
